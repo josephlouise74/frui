@@ -212,7 +212,7 @@ export function SuggestInput(props: SuggestInputProps) {
       onDropdown={onDropdown}
       onUpdate={onUpdate}
       option={option}
-      options={typeof remote === 'string' ? remoteOptions : options}
+      options={remoteOptions}
       right={right}
       top={top}
       value={value}
@@ -222,7 +222,7 @@ export function SuggestInput(props: SuggestInputProps) {
           {...inputProps}
           className={controlStyles.className} 
           style={controlStyles.style}
-          onQuery={typeof remote === 'string' ? handleQuery : onQuery}
+          onQuery={handleQuery}
         />
       </Dropdown.Control>
       {children}
