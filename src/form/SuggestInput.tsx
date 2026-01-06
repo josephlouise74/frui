@@ -196,6 +196,9 @@ export function SuggestInput(props: SuggestInputProps) {
         console.error('Failed to fetch remote suggestions:', error);
       }
     }
+    if (typeof onQuery === 'function') {
+      onQuery(query);
+    }
   };
   //render
   return (
