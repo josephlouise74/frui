@@ -39,6 +39,8 @@ export type SuggestInputProps = Omit<InputProps
     control?: SlotStyleProp,
     //slot: style to apply to the select drop down
     dropdown?: SlotStyleProp,
+    //custom fetch function for dependency injection (mainly for tests)
+    fetch?: typeof fetch,
     //called whenever user types
     onQuery?: (query: string) => void,
     //slot: style to apply to the select control
@@ -145,6 +147,8 @@ export function SuggestInput(props: SuggestInputProps) {
     error, //?: boolean
     //position of the dropdown
     left, //?: boolean
+    //custom fetch function for dependency injection (mainly for tests)
+    fetch: customFetch = fetch,
     //dropdown handler
     onDropdown, //?: (show: boolean) => void
     //called whenever user types
@@ -182,23 +186,18 @@ export function SuggestInput(props: SuggestInputProps) {
   // get slot styles
   const controlStyles = control ? getSlotStyles(control, {}) : {};
   const dropdownStyles = dropdown ? getSlotStyles(dropdown, {}) : {};
-  //handlers
   const handleQuery = async (query: string) => {
     if (typeof remote === 'string' && query) {
-      try {
-        const response = 
-          await fetch(`${remote}?q=${encodeURIComponent(query)}`);
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setRemoteOptions(data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch remote suggestions:', error);
+      const response = 
+        await customFetch(
+          remote.replace('{{QUERY}}', encodeURIComponent(query))
+        );
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setRemoteOptions(data);
       }
     }
-    if (typeof onQuery === 'function') {
-      onQuery(query);
-    }
+    onQuery && onQuery(query);
   };
   //render
   return (
