@@ -15,6 +15,8 @@ import type { InputProps } from './Input.js';
 import getSlotStyles from '../helpers/getSlotStyles.js';
 import Dropdown from '../base/Dropdown.js';
 import Input from './Input.js';
+//modules
+import { useState } from 'react';
 
 //--------------------------------------------------------------------//
 // Types
@@ -43,6 +45,8 @@ export type SuggestInputProps = Omit<InputProps
     option?: CallableSlotStyleProp<DropdownStates>,
     //serialized list of options as array or object
     options?: DropdownOptionProp
+    //remote url to fetch suggestions
+    remote?: string
   }, 
   'multiple'
 >;
@@ -143,12 +147,16 @@ export function SuggestInput(props: SuggestInputProps) {
     left, //?: boolean
     //dropdown handler
     onDropdown, //?: (show: boolean) => void
+    //called whenever user types
+    onQuery, //?: (query: string) => void 
     //update handler
     onUpdate, //?: (value: string) => void
     //slot: style to apply to the select control
     option, //: CallableSlotStyleProp<SelectStates>
     //serialized list of options as array or object
     options, //: SelectOption[]|Record<string, string>
+    //remote url to fetch suggestions
+    remote, //?: string
     //position of the dropdown
     right, //?: boolean
     //custom inline styles
@@ -159,6 +167,11 @@ export function SuggestInput(props: SuggestInputProps) {
     value, //?: T
     ...inputProps
   } = props;
+  //hooks
+  const [ 
+    remoteOptions, 
+    setRemoteOptions 
+  ] = useState<DropdownOptionProp | undefined>(options);
   //variables
   // determine classes
   const classes = [ 'frui-form-suggest-input' ];
@@ -169,6 +182,21 @@ export function SuggestInput(props: SuggestInputProps) {
   // get slot styles
   const controlStyles = control ? getSlotStyles(control, {}) : {};
   const dropdownStyles = dropdown ? getSlotStyles(dropdown, {}) : {};
+  //handlers
+  const handleQuery = async (query: string) => {
+    if (typeof remote === 'string' && query) {
+      try {
+        const response = 
+          await fetch(`${remote}?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setRemoteOptions(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch remote suggestions:', error);
+      }
+    }
+  };
   //render
   return (
     <Dropdown
@@ -181,7 +209,7 @@ export function SuggestInput(props: SuggestInputProps) {
       onDropdown={onDropdown}
       onUpdate={onUpdate}
       option={option}
-      options={options}
+      options={typeof remote === 'string' ? remoteOptions : options}
       right={right}
       top={top}
       value={value}
@@ -191,6 +219,7 @@ export function SuggestInput(props: SuggestInputProps) {
           {...inputProps}
           className={controlStyles.className} 
           style={controlStyles.style}
+          onQuery={typeof remote === 'string' ? handleQuery : onQuery}
         />
       </Dropdown.Control>
       {children}
