@@ -23,14 +23,14 @@ const props = [
   [ 'className', 'string', 'No', 'Standard HTML class names' ],
   [ 'defaultValue', 'string', 'No', 'Alias to value' ],
   [ 'error', 'string|boolean', 'No', 'Any error message' ],
-  [ 'fetch', 'Function', 'No', 'Custom fetch function for dependency injection (mainly for tests)' ],  // ← ADD THIS
+  [ 'fetch', 'Function', 'No', 'Custom fetch function for dependency injection (mainly for tests)' ],
   [ 'name', 'string', 'No', 'Used for react server components.' ],
   [ 'onChange', 'Function', 'No', 'Event handler when value has changed' ],
   [ 'onDropdown', 'Function', 'No', 'Event handler when dropdown opens/closes' ],
   [ 'onQuery', 'Function', 'No', 'Event handler when something is searched' ],
   [ 'onUpdate', 'Function', 'No', 'Update event handler' ],
   [ 'options', 'string[]', 'No', 'List of select options.' ],
-  [ 'remote', 'string', 'No', 'Remote URL for fetching suggestions (use {{QUERY}} as placeholder)' ],  // ← ADD THIS
+  [ 'remote', 'string', 'No', 'Remote URL for fetching suggestions (use {{QUERY}} as placeholder)' ],
   [ 'style', 'CSS Object', 'No', 'Standard CSS object' ],
   [ 'value', 'string', 'No', 'Selected value from the options' ]
 ];
