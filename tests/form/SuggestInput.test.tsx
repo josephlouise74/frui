@@ -105,7 +105,7 @@ describe('<SuggestInput />', () => {
       expect(onUpdate).toHaveBeenCalledWith('no');
     });
   });
-  it('adds hidden input after selection', async () => {
+  it('shows controlled input value', async () => {
     const { rerender } = render(
       <SuggestInput
         name="search"
@@ -121,12 +121,10 @@ describe('<SuggestInput />', () => {
       />
     );
     await waitFor(() => {
-      const hidden = document.querySelector(
-        'input[ type="hidden" ]'
-      ) as HTMLInputElement;
-      expect(hidden).toBeInTheDocument();
-      expect(hidden.name).toBe('search');
-      expect(hidden.value).toBe('test');
+      const input = screen.getByRole('textbox') as HTMLInputElement;
+      expect(input).toBeInTheDocument();
+      expect(input.name).toBe('search');
+      expect(input.value).toBe('test');
     });
   });
   it('fetches remote suggestions with custom fetch prop', async () => {
