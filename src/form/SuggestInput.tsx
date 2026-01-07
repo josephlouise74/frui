@@ -1,6 +1,8 @@
 //--------------------------------------------------------------------//
 // Imports
 
+//modules
+import { useState } from 'react';
 //frui
 import type { 
   SlotStyleProp, 
@@ -15,8 +17,6 @@ import type { InputProps } from './Input.js';
 import getSlotStyles from '../helpers/getSlotStyles.js';
 import Dropdown from '../base/Dropdown.js';
 import Input from './Input.js';
-//modules
-import { useState } from 'react';
 
 //--------------------------------------------------------------------//
 // Types
