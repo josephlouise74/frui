@@ -39,7 +39,7 @@ export type SuggestInputProps = Omit<InputProps
     control?: SlotStyleProp,
     //slot: style to apply to the select drop down
     dropdown?: SlotStyleProp,
-    //custom fetch function for dependency injection (mainly for tests)
+    //custom fetch function for dependency injection
     fetch?: typeof fetch,
     //called whenever user types
     onQuery?: (query: string) => void,
