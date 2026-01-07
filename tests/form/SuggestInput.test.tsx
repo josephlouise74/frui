@@ -45,15 +45,21 @@ describe('<SuggestInput />', () => {
     render(
       <SuggestInput placeholder="Type to search" />
     );
-    const wrapper = document.querySelector('.frui-form-suggest-input');
+    const wrapper = 
+      document.querySelector('.frui-form-suggest-input');
     expect(wrapper).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Type to search')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Type to search')
+    ).toBeInTheDocument();
   });
   it('applies error class when error prop set', () => {
     const { container } = render(<SuggestInput error />);
-    const wrapper = container.querySelector('.frui-form-suggest-input');
+    const wrapper = 
+      container.querySelector('.frui-form-suggest-input');
     expect(wrapper).toBeInTheDocument();
-    expect(wrapper?.className).toContain('frui-form-suggest-input-error');
+    expect(
+      wrapper?.className
+    ).toContain('frui-form-suggest-input-error');
   });
   it('opens dropdown after typing minimum chars', () => {
     const onQuery = vi.fn();
