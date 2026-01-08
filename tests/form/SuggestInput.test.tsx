@@ -4,13 +4,13 @@
 //frui
 import SuggestInput from '../../src/form/SuggestInput.js';
 //tests
-import '@testing-library/jest-dom';
 import {
   describe,
   expect,
   it,
   vi
 } from 'vitest';
+import '@testing-library/jest-dom';
 import {
   fireEvent,
   render,
