@@ -3,20 +3,14 @@
 
 //frui
 import SuggestInput from '../../src/form/SuggestInput.js';
-//tests
-import {
-  describe,
-  expect,
-  it,
-  vi
-} from 'vitest';
 import '@testing-library/jest-dom';
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor
+import { 
+  fireEvent, 
+  render, 
+  screen, 
+  waitFor 
 } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 //--------------------------------------------------------------------//
 // Mocks
