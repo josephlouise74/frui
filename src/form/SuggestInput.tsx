@@ -186,6 +186,7 @@ export function SuggestInput(props: SuggestInputProps) {
   // get slot styles
   const controlStyles = control ? getSlotStyles(control, {}) : {};
   const dropdownStyles = dropdown ? getSlotStyles(dropdown, {}) : {};
+  //handlers
   const handleQuery = async (query: string) => {
     if (typeof remote === 'string' && query) {
       const response = 
